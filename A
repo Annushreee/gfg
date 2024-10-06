@@ -1,0 +1,33 @@
+class Solution {
+    public static long maximumProduct(int n, int[] arr, int l, int r) {
+        // Find the maximum in the subarray from l to r
+        int max = Integer.MIN_VALUE;
+        for (int i = l; i <= r; i++) {
+            if (arr[i] > max) {
+                max = arr[i]; // Update max if current element is greater
+            }
+        }
+
+        // Now find the maximum excluding the specified maximum in the subarray
+        int max2 = Integer.MIN_VALUE;
+
+        // Loop through the entire array to find the maximum excluding the specified maximum
+        for (int j = 0; j < n; j++) {
+            // Skip the elements in the subarray
+            if (j < l || j > r) {
+                if (arr[j] > max2) {
+                    max2 = arr[j];
+                }
+            }
+        }
+
+        // Handle the case where there might not be a valid second max
+        if (max2 == Integer.MIN_VALUE) {
+            // If there's no valid second maximum, return 0 or some default value
+            return 0;
+        }
+
+        long ans = (long) max * (long) max2; // Use long to prevent overflow
+        return ans;
+    }
+}
